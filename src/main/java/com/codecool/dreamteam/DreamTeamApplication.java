@@ -18,7 +18,7 @@ public class DreamTeamApplication {
         SpringApplication.run(DreamTeamApplication.class, args);
     }
 
-    @Autowired
+    /*@Autowired
     CardRepository cardRepository;
 
     @Bean
@@ -31,6 +31,6 @@ public class DreamTeamApplication {
             System.out.println(cardList.size());
         };
 
-    }
+    }*/
 
 }

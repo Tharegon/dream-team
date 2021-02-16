@@ -16,5 +16,6 @@ public class Card {
 
     @Id
     @GeneratedValue
-    private Long Id;
+    private Long id;
+    private String name;
 }

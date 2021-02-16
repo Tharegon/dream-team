@@ -19,6 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
+@ActiveProfiles("test")
 class DreamTeamApplicationTests {
 
     @Autowired
@@ -32,7 +33,14 @@ class DreamTeamApplicationTests {
         Card card = Card.builder().build();
         cardRepository.save(card);
         List<Card> result = cardRepository.findAll();
-        assertThat(result).hasSize(1);
+        assertThat(result).hasSizeGreaterThan(0);
     }
 
+    @Test
+    void saveWithName(){
+        String name = "Hegyi Pista";
+        Card card = Card.builder().name(name).build();
+        cardRepository.save(card);
+        assertThat(cardRepository.findByName(name).getName()).isEqualTo(name);
+    }
 }
