@@ -68,4 +68,19 @@ class DreamTeamApplicationTests {
         assertThat(cardRepository.findByName("Pista").getQuality()).isEqualTo(Quality.EPIC);
         assertThat(cardRepository.findByName("Pista").getRole()).isEqualTo(Role.BOT);
     }
+
+    @Test
+    void saveSkills(){
+        Card card = Card.builder()
+                .earlyGameSkill(23)
+                .midGameSkill(32)
+                .lateGameSkill(23)
+                .name("Béla")
+                .build();
+        cardRepository.save(card);
+        Card bela = cardRepository.findByName("Béla");
+        assertThat(bela.getEarlyGameSkill()).isEqualTo(23);
+        assertThat(bela.getMidGameSkill()).isEqualTo(32);
+        assertThat(bela.getLateGameSkill()).isEqualTo(23);
+    }
 }
