@@ -18,4 +18,7 @@ public class Card {
     @GeneratedValue
     private Long id;
     private String name;
+    private String nickname;
+    private Role role;
+    private Quality quality;
 }
