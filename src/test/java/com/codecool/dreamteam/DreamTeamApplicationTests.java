@@ -1,13 +1,38 @@
 package com.codecool.dreamteam;
 
+import com.codecool.dreamteam.entity.Card;
+import com.codecool.dreamteam.repository.CardRepository;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.junit4.SpringRunner;
 
-@SpringBootTest
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@RunWith(SpringRunner.class)
+@DataJpaTest
 class DreamTeamApplicationTests {
 
+    @Autowired
+    private CardRepository cardRepository;
+
+    @Autowired
+    private TestEntityManager entityManager;
+
     @Test
-    void contextLoads() {
+    void saveOneEntity() {
+        Card card = Card.builder().build();
+        cardRepository.save(card);
+        List<Card> result = cardRepository.findAll();
+        assertThat(result).hasSize(1);
     }
 
 }
