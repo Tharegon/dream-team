@@ -25,4 +25,7 @@ public class Card {
     private int earlyGameSkill;
     private int midGameSkill;
     private int lateGameSkill;
+    private String picture;
+    private String teamPicture;
+    private String teamName;
 }
