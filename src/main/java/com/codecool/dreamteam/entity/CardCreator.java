@@ -22,7 +22,7 @@ public class CardCreator {
         String[] rekkles = {"Martin","Rekkles", "BOT", "text","link","link","G2 Esport"};
         String[] wunder = {"Martin","Wunder", "TOP", "text","link","link","G2 Esport"};
         String[] jankos = {"jankowski","Jankos", "JGL", "text","link","link","G2 Esport"};
-        String[] mikyx = {"Mikyx","Jankos", "SUP", "text","link","link","G2 Esport"};
+        String[] mikyx = {"Miky","Mikyx", "SUP", "text","link","link","G2 Esport"};
         customPlayers.add(caps);
         customPlayers.add(rekkles);
         customPlayers.add(wunder);
@@ -35,8 +35,9 @@ public class CardCreator {
         int early=Util.randomSkill();
         int mid=Util.randomSkill();
         int late=Util.randomSkill();
+        int allSkill=early+mid+late;
         String[] player = getRandomPlayer();
-        Quality quality= getQuality(early+mid+late);
+        Quality quality= getQuality(allSkill);
         Role role= getRole(player[2]);
         return Card.builder()
                 .name(player[0])
@@ -49,6 +50,7 @@ public class CardCreator {
                 .earlyGameSkill(early)
                 .midGameSkill(mid)
                 .lateGameSkill(late)
+                .allSkill(allSkill)
                 .quality(quality)
                 .build();
     }
@@ -80,7 +82,13 @@ public class CardCreator {
     }
 
     private Quality getQuality(int num){
-        Quality result = Quality.COMMON;
-        return result;
+        Quality result;
+        if(num<50) return result= Quality.COMMON;
+        else if(num>50 && num<100) return result = Quality.UNCOMMON;
+        else if(num>100 && num<150) return result = Quality.EPIC;
+        else if(num>150 && num<200) return result = Quality.LEGENDARY;
+        else if(num>200 && num<250) return result = Quality.MYTICH;
+        else if(num>250) return result = Quality.ULTIMATE;
+        return Quality.COMMON;
     }
 }
