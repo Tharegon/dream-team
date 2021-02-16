@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+@ToString
 @Getter
 @Setter
 @AllArgsConstructor
@@ -25,6 +26,7 @@ public class Card {
     private int earlyGameSkill;
     private int midGameSkill;
     private int lateGameSkill;
+    private int allSkill;
     private String picture;
     private String teamPicture;
     private String teamName;
