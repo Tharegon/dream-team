@@ -4,7 +4,6 @@ import com.codecool.dreamteam.util.Util;
 import lombok.*;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +52,14 @@ public class CardCreator {
                 .allSkill(allSkill)
                 .quality(quality)
                 .build();
+    }
+
+    public List<Card> createPack(int packSize){
+        List<Card> pack = new ArrayList<>();
+        for (int i = 0; i < packSize; i++) {
+            pack.add(createRandomPlayer());
+        }
+        return pack;
     }
 
     private String[] getRandomPlayer() {
