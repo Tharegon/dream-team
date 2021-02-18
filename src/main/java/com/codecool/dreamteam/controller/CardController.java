@@ -27,5 +27,9 @@ public class CardController {
        return pageUserRepository.findById(id).get().getMyCards();
     }
 
-
+    @CrossOrigin(origins = "*")
+    @GetMapping("/card/{id}")
+    public Object getCard(@PathVariable Long id){
+        return cardRepository.findById(id);
+    }
 }
