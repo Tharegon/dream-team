@@ -1,5 +1,6 @@
 package com.codecool.dreamteam.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,5 +31,7 @@ public class Card {
     private String teamPicture;
     private String teamName;
     @ManyToOne(cascade = CascadeType.PERSIST)
+    @EqualsAndHashCode.Exclude
+    @JsonIgnore
     private PageUser pageUser;
 }
