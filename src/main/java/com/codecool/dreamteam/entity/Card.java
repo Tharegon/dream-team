@@ -2,9 +2,7 @@ package com.codecool.dreamteam.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @ToString
 @Getter
@@ -17,6 +15,7 @@ public class Card {
 
     @Id
     @GeneratedValue
+    @Column(nullable=false)
     private Long id;
     private String name;
     private String nickname;
@@ -30,4 +29,6 @@ public class Card {
     private String picture;
     private String teamPicture;
     private String teamName;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private PageUser pageUser;
 }
