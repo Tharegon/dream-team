@@ -46,6 +46,7 @@ public class CardController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/openSmallPack/{userId}")
+    //TODO add a check to "u can open packs?"
     public List<Card> openSmallPack(@PathVariable Long userId){
         int small=5;
         PageUser user = pageUserRepository.findById(userId).get();
@@ -53,5 +54,11 @@ public class CardController {
         cardRepository.saveAll(cards);
         return cards;
 
+    }
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/deleteCard/{id}", method = RequestMethod.DELETE)
+    //TODO add currency
+    public void deleteCard(@PathVariable Long id){
+        cardRepository.deleteById(id);
     }
 }
