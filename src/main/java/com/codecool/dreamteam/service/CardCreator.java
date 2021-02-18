@@ -1,6 +1,7 @@
 package com.codecool.dreamteam.service;
 
 import com.codecool.dreamteam.entity.Card;
+import com.codecool.dreamteam.entity.PageUser;
 import com.codecool.dreamteam.entity.Quality;
 import com.codecool.dreamteam.entity.Role;
 import com.codecool.dreamteam.util.Util;
@@ -35,7 +36,7 @@ public class CardCreator {
         this.players = customPlayers;
     }
 
-    public Card createRandomPlayer(){
+    public Card createRandomPlayer(PageUser user){
         int early=Util.randomSkill();
         int mid=Util.randomSkill();
         int late=Util.randomSkill();
@@ -56,13 +57,14 @@ public class CardCreator {
                 .lateGameSkill(late)
                 .allSkill(allSkill)
                 .quality(quality)
+                .pageUser(user)
                 .build();
     }
 
-    public List<Card> createPack(int packSize){
+    public List<Card> createPack(int packSize, PageUser user){
         List<Card> pack = new ArrayList<>();
         for (int i = 0; i < packSize; i++) {
-            pack.add(createRandomPlayer());
+            pack.add(createRandomPlayer(user));
         }
         return pack;
     }
