@@ -1,8 +1,13 @@
-package com.codecool.dreamteam.entity;
+package com.codecool.dreamteam.service;
 
+import com.codecool.dreamteam.entity.Card;
+import com.codecool.dreamteam.entity.Quality;
+import com.codecool.dreamteam.entity.Role;
 import com.codecool.dreamteam.util.Util;
 import lombok.*;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,17 +16,17 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @Builder
-@Component
+@Service
 public class CardCreator {
     private List<String[]> players;
 
     public CardCreator() {
         List<String[]> customPlayers = new ArrayList<>();
         String[] caps = {"Rasmus Winther","Caps", "MID", "text","link","link","G2 Esport"};
-        String[] rekkles = {"Martin","Rekkles", "BOT", "text","link","link","G2 Esport"};
-        String[] wunder = {"Martin","Wunder", "TOP", "text","link","link","G2 Esport"};
-        String[] jankos = {"jankowski","Jankos", "JGL", "text","link","link","G2 Esport"};
-        String[] mikyx = {"Miky","Mikyx", "SUP", "text","link","link","G2 Esport"};
+        String[] rekkles = {"Martin Larsson","Rekkles", "BOT", "text","link","link","G2 Esport"};
+        String[] wunder = {"Martin Hansen","Wunder", "TOP", "text","link","link","G2 Esport"};
+        String[] jankos = {"Marcin Jankowsk","Jankos", "JGL", "text","link","link","G2 Esport"};
+        String[] mikyx = {"Mihael Mehle","Mikyx", "SUP", "text","link","link","G2 Esport"};
         customPlayers.add(caps);
         customPlayers.add(rekkles);
         customPlayers.add(wunder);
