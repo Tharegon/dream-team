@@ -23,6 +23,7 @@ public class PageUser {
     private String name;
     private String password;
     private String email;
+    private Integer numberOfSmallPacks;
     @OneToMany(mappedBy = "pageUser", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @Singular
     @EqualsAndHashCode.Exclude
