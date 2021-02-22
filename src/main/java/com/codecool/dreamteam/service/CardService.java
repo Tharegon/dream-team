@@ -46,6 +46,10 @@ public class CardService {
         return null;
     }
     public void deleteCard(Long id) {
-        cardRepository.deleteById(id);
+        Card card = cardRepository.findById(id).get();
+        Long userId = card.getPageUser().getUserId();
+        PageUser user = pageUserRepository.getOne(userId);
+        user.setSilverCoin(user.getSilverCoin()+25);
+        cardRepository.delete(card);
     }
 }

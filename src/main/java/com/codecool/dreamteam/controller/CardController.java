@@ -50,7 +50,6 @@ public class CardController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/openSmallPack/{userId}")
-    //TODO add a check to "u can open packs?"
     public List<Card> openSmallPack(@PathVariable Long userId){
         return  cardService.openSmallPack(userId);
     }
