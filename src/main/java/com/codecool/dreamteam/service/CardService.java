@@ -24,46 +24,62 @@ public class CardService {
     private CardCreator cardCreator;
 
 
-    public Set<Card> getMyCard(Long id){
+    public Set<Card> getMyCard(Long id) {
         return pageUserRepository.findById(id).get().getMyCards();
     }
 
-    public Card getCard(Long id){
+    public Card getCard(Long id) {
         return cardRepository.findById(id).get();
     }
 
-    public List<Card> openSmallPack(Long userId){
+    public List<Card> openSmallPack(Long userId) {
         PageUser user = pageUserRepository.findById(userId).get();
-        if (user.getNumberOfSmallPacks()>0){
-        int small=5;
+        if (user.getNumberOfSmallPacks() > 0) {
+            int small = 5;
 
-        List<Card> cards = cardCreator.createPack(small,user);
-        cardRepository.saveAll(cards);
-        user.setNumberOfSmallPacks(user.getNumberOfSmallPacks()-1);
-        pageUserRepository.save(user);
-        return cards;
+            List<Card> cards = cardCreator.createPack(small, user);
+            cardRepository.saveAll(cards);
+            user.setNumberOfSmallPacks(user.getNumberOfSmallPacks() - 1);
+            pageUserRepository.save(user);
+            return cards;
         }
         return null;
     }
+
     public void deleteCard(Long id) {
         Card card = cardRepository.findById(id).get();
         Long userId = card.getPageUser().getUserId();
         PageUser user = pageUserRepository.getOne(userId);
-        user.setSilverCoin(user.getSilverCoin()+25);
+        user.setSilverCoin(user.getSilverCoin() + 25);
         cardRepository.delete(card);
     }
 
     public List<Card> openMediumPack(Long userId) {
         PageUser user = pageUserRepository.findById(userId).get();
-        if (user.getNumberOfSmallPacks()>0){
-            int medium=10;
+        if (user.getNumberOfSmallPacks() > 0) {
+            int medium = 10;
 
-            List<Card> cards = cardCreator.createPack(medium,user);
+            List<Card> cards = cardCreator.createPack(medium, user);
             cardRepository.saveAll(cards);
-            user.setNumberOfSmallPacks(user.getNumberOfSmallPacks()-1);
+            user.setNumberOfSmallPacks(user.getNumberOfSmallPacks() - 1);
+            pageUserRepository.save(user);
+            return cards;
+        }
+        return null;
+    }
+
+    public List<Card> openLargePack(Long userId) {
+        PageUser user = pageUserRepository.findById(userId).get();
+        if (user.getNumberOfSmallPacks() > 0) {
+            int large = 20;
+
+            List<Card> cards = cardCreator.createPack(large, user);
+            cardRepository.saveAll(cards);
+            user.setNumberOfSmallPacks(user.getNumberOfSmallPacks() - 1);
             pageUserRepository.save(user);
             return cards;
         }
         return null;
     }
 }
+

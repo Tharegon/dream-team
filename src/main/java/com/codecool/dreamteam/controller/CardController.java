@@ -61,6 +61,12 @@ public class CardController {
     }
 
     @CrossOrigin(origins = "*")
+    @GetMapping("/openLargePack/{userId}")
+    public List<Card> openLargePack(@PathVariable Long userId){
+        return  cardService.openLargePack(userId);
+    }
+
+    @CrossOrigin(origins = "*")
     @RequestMapping(value = "/deleteCard/{id}", method = RequestMethod.DELETE)
     public void deleteCard(@PathVariable Long id){
         cardService.deleteCard(id);
