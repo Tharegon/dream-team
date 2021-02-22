@@ -22,22 +22,64 @@ public class CardService {
     private CardRepository cardRepository;
     @Autowired
     private CardCreator cardCreator;
-    public Set<Card> getMyCard(Long id){
+
+
+    public Set<Card> getMyCard(Long id) {
         return pageUserRepository.findById(id).get().getMyCards();
     }
 
-    public Card getCard(Long id){
+    public Card getCard(Long id) {
         return cardRepository.findById(id).get();
     }
 
-    public List<Card> openSmallPack(Long userId){
-        int small=5;
+    public List<Card> openSmallPack(Long userId) {
         PageUser user = pageUserRepository.findById(userId).get();
-        List<Card> cards = cardCreator.createPack(small,user);
-        cardRepository.saveAll(cards);
-        return cards;
+        if (user.getNumberOfSmallPacks() > 0) {
+            int small = 5;
+
+            List<Card> cards = cardCreator.createPack(small, user);
+            cardRepository.saveAll(cards);
+            user.setNumberOfSmallPacks(user.getNumberOfSmallPacks() - 1);
+            pageUserRepository.save(user);
+            return cards;
+        }
+        return null;
     }
+
     public void deleteCard(Long id) {
-        cardRepository.deleteById(id);
+        Card card = cardRepository.findById(id).get();
+        Long userId = card.getPageUser().getUserId();
+        PageUser user = pageUserRepository.getOne(userId);
+        user.setSilverCoin(user.getSilverCoin() + 25);
+        cardRepository.delete(card);
+    }
+
+    public List<Card> openMediumPack(Long userId) {
+        PageUser user = pageUserRepository.findById(userId).get();
+        if (user.getNumberOfSmallPacks() > 0) {
+            int medium = 10;
+
+            List<Card> cards = cardCreator.createPack(medium, user);
+            cardRepository.saveAll(cards);
+            user.setNumberOfSmallPacks(user.getNumberOfSmallPacks() - 1);
+            pageUserRepository.save(user);
+            return cards;
+        }
+        return null;
+    }
+
+    public List<Card> openLargePack(Long userId) {
+        PageUser user = pageUserRepository.findById(userId).get();
+        if (user.getNumberOfSmallPacks() > 0) {
+            int large = 20;
+
+            List<Card> cards = cardCreator.createPack(large, user);
+            cardRepository.saveAll(cards);
+            user.setNumberOfSmallPacks(user.getNumberOfSmallPacks() - 1);
+            pageUserRepository.save(user);
+            return cards;
+        }
+        return null;
     }
 }
+

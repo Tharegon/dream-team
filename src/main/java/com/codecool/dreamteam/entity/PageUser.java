@@ -23,6 +23,8 @@ public class PageUser {
     private String name;
     private String password;
     private String email;
+    private Integer numberOfSmallPacks;
+    private Integer silverCoin;
     @OneToMany(mappedBy = "pageUser", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @Singular
     @EqualsAndHashCode.Exclude

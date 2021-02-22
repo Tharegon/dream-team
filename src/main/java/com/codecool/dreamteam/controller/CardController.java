@@ -50,14 +50,24 @@ public class CardController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/openSmallPack/{userId}")
-    //TODO add a check to "u can open packs?"
     public List<Card> openSmallPack(@PathVariable Long userId){
         return  cardService.openSmallPack(userId);
     }
 
     @CrossOrigin(origins = "*")
+    @GetMapping("/openMediumPack/{userId}")
+    public List<Card> openMediumPack(@PathVariable Long userId){
+        return  cardService.openMediumPack(userId);
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/openLargePack/{userId}")
+    public List<Card> openLargePack(@PathVariable Long userId){
+        return  cardService.openLargePack(userId);
+    }
+
+    @CrossOrigin(origins = "*")
     @RequestMapping(value = "/deleteCard/{id}", method = RequestMethod.DELETE)
-    //TODO add currency
     public void deleteCard(@PathVariable Long id){
         cardService.deleteCard(id);
     }
