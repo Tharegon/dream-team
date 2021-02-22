@@ -52,4 +52,18 @@ public class CardService {
         user.setSilverCoin(user.getSilverCoin()+25);
         cardRepository.delete(card);
     }
+
+    public List<Card> openMediumPack(Long userId) {
+        PageUser user = pageUserRepository.findById(userId).get();
+        if (user.getNumberOfSmallPacks()>0){
+            int medium=10;
+
+            List<Card> cards = cardCreator.createPack(medium,user);
+            cardRepository.saveAll(cards);
+            user.setNumberOfSmallPacks(user.getNumberOfSmallPacks()-1);
+            pageUserRepository.save(user);
+            return cards;
+        }
+        return null;
+    }
 }

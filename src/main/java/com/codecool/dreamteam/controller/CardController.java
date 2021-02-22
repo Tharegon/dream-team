@@ -55,8 +55,13 @@ public class CardController {
     }
 
     @CrossOrigin(origins = "*")
+    @GetMapping("/openMediumPack/{userId}")
+    public List<Card> openMediumPack(@PathVariable Long userId){
+        return  cardService.openMediumPack(userId);
+    }
+
+    @CrossOrigin(origins = "*")
     @RequestMapping(value = "/deleteCard/{id}", method = RequestMethod.DELETE)
-    //TODO add currency
     public void deleteCard(@PathVariable Long id){
         cardService.deleteCard(id);
     }
