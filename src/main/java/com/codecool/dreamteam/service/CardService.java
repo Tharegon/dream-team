@@ -22,6 +22,8 @@ public class CardService {
     private CardRepository cardRepository;
     @Autowired
     private CardCreator cardCreator;
+
+
     public Set<Card> getMyCard(Long id){
         return pageUserRepository.findById(id).get().getMyCards();
     }
@@ -31,11 +33,17 @@ public class CardService {
     }
 
     public List<Card> openSmallPack(Long userId){
-        int small=5;
         PageUser user = pageUserRepository.findById(userId).get();
+        if (user.getNumberOfSmallPacks()>0){
+        int small=5;
+
         List<Card> cards = cardCreator.createPack(small,user);
         cardRepository.saveAll(cards);
+        user.setNumberOfSmallPacks(user.getNumberOfSmallPacks()-1);
+        pageUserRepository.save(user);
         return cards;
+        }
+        return null;
     }
     public void deleteCard(Long id) {
         cardRepository.deleteById(id);
