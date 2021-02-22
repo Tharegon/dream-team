@@ -13,10 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@Builder
+
 @Service
 public class CardCreator {
     private List<String[]> players;

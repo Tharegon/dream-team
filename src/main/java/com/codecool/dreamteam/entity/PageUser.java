@@ -2,6 +2,7 @@ package com.codecool.dreamteam.entity;
 
 
 import lombok.*;
+import org.springframework.context.annotation.Bean;
 
 import javax.persistence.*;
 import java.util.Set;
