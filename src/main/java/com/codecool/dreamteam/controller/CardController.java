@@ -6,6 +6,7 @@ import com.codecool.dreamteam.entity.PageUser;
 import com.codecool.dreamteam.repository.CardRepository;
 import com.codecool.dreamteam.repository.PageUserRepository;
 import com.codecool.dreamteam.service.CardCreator;
+import com.codecool.dreamteam.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +17,9 @@ import java.util.Set;
 @RestController
 @RequestMapping
 public class CardController {
+
+    @Autowired
+    CardService cardService;
 
     final
     CardRepository cardRepository;
@@ -35,7 +39,7 @@ public class CardController {
     @CrossOrigin(origins = "*")
     @GetMapping("/myCards/{id}")
     public Set<Card> getMyCards(@PathVariable Long id){
-       return pageUserRepository.findById(id).get().getMyCards();
+        return cardService.getMyCard(id);
     }
 
     @CrossOrigin(origins = "*")
