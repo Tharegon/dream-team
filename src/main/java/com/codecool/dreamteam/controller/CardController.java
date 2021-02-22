@@ -59,6 +59,6 @@ public class CardController {
     @RequestMapping(value = "/deleteCard/{id}", method = RequestMethod.DELETE)
     //TODO add currency
     public void deleteCard(@PathVariable Long id){
-        cardRepository.deleteById(id);
+        cardService.deleteCard(id);
     }
 }

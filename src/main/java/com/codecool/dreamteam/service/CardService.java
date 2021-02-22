@@ -36,6 +36,8 @@ public class CardService {
         List<Card> cards = cardCreator.createPack(small,user);
         cardRepository.saveAll(cards);
         return cards;
-
+    }
+    public void deleteCard(Long id) {
+        cardRepository.deleteById(id);
     }
 }
