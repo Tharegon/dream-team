@@ -44,8 +44,8 @@ public class CardController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/card/{id}")
-    public Object getCard(@PathVariable Long id){
-        return cardRepository.findById(id);
+    public Card getCard(@PathVariable Long id){
+        return cardService.getCard(id);
     }
 
     @CrossOrigin(origins = "*")
