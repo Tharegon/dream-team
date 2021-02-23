@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class Card {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable=false)
     private Long id;
     private String name;
@@ -34,4 +34,6 @@ public class Card {
     @EqualsAndHashCode.Exclude
     @JsonIgnore
     private PageUser pageUser;
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private Team team;
 }

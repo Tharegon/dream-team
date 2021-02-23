@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.context.annotation.Bean;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @ToString
@@ -25,6 +26,8 @@ public class PageUser {
     private String email;
     private Integer numberOfSmallPacks;
     private Integer silverCoin;
+    @OneToOne
+    private Team team;
     @OneToMany(mappedBy = "pageUser", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @Singular
     @EqualsAndHashCode.Exclude
