@@ -3,13 +3,16 @@ package com.codecool.dreamteam.service;
 
 import com.codecool.dreamteam.entity.Card;
 import com.codecool.dreamteam.entity.PageUser;
+import com.codecool.dreamteam.entity.Team;
 import com.codecool.dreamteam.repository.CardRepository;
 import com.codecool.dreamteam.repository.PageUserRepository;
+import com.codecool.dreamteam.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -22,7 +25,8 @@ public class CardService {
     private CardRepository cardRepository;
     @Autowired
     private CardCreator cardCreator;
-
+    @Autowired
+    private TeamRepository teamRepository;
 
     public Set<Card> getMyCard(Long id) {
         return pageUserRepository.findById(id).get().getMyCards();
@@ -80,6 +84,25 @@ public class CardService {
             return cards;
         }
         return null;
+    }
+
+    public void addToMyTeam(Long id) {
+        Card card = cardRepository.findById(id).get();
+        Long userId = card.getPageUser().getUserId();
+        PageUser user = pageUserRepository.getOne(userId);
+        Set<Card> teamSet =  user.getTeam().getMyTeam();
+        user.getTeam().setMyTeam(teamSet);
+        Team userTeam = user.getTeam();
+        userTeam.setMyTeam(teamSet);
+        card.setTeam(userTeam);
+        user.setTeam(userTeam);
+        teamRepository.save(userTeam);
+    }
+
+
+    public Set<Card> getMyTeam(Long userId) {
+        PageUser user = pageUserRepository.getOne(userId);
+        return user.getTeam().getMyTeam();
     }
 }
 

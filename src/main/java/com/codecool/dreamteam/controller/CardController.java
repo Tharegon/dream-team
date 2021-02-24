@@ -18,22 +18,14 @@ import java.util.Set;
 @RequestMapping
 public class CardController {
 
-    @Autowired
+    final
     CardService cardService;
 
-    final
-    CardRepository cardRepository;
 
-    final
-    PageUserRepository pageUserRepository;
 
-    final
-    CardCreator cardCreator;
+    public CardController(CardService cardService) {
 
-    public CardController(CardRepository cardRepository, PageUserRepository pageUserRepository, CardCreator cardCreator) {
-        this.cardRepository = cardRepository;
-        this.pageUserRepository = pageUserRepository;
-        this.cardCreator = cardCreator;
+        this.cardService = cardService;
     }
 
     @CrossOrigin(origins = "*")
@@ -70,5 +62,17 @@ public class CardController {
     @RequestMapping(value = "/deleteCard/{id}", method = RequestMethod.DELETE)
     public void deleteCard(@PathVariable Long id){
         cardService.deleteCard(id);
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/addToMyTeam/{id}")
+    public void addToMyTeam(@PathVariable Long id){
+        cardService.addToMyTeam(id);
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/getMyTeam/{userId}")
+    public Set<Card> getMyTeam(@PathVariable Long userId){
+        return cardService.getMyTeam(userId);
     }
 }

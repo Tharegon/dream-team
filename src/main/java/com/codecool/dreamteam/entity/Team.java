@@ -1,5 +1,6 @@
 package com.codecool.dreamteam.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,5 +20,6 @@ public class Team {
     private Long id;
     @OneToMany(mappedBy = "team", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @EqualsAndHashCode.Exclude
+    @JsonIgnore
     private Set<Card> myTeam;
 }
