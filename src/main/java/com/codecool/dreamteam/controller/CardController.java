@@ -75,4 +75,10 @@ public class CardController {
     public Set<Card> getMyTeam(@PathVariable Long userId){
         return cardService.getMyTeam(userId);
     }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/buySmallPack/{userId}")
+    public void buySmallPack(@PathVariable Long userId){
+        cardService.buySmallPack(userId);
+    }
 }
