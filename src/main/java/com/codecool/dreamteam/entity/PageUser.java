@@ -22,7 +22,6 @@ public class PageUser {
     @Column(nullable=false)
     private Long userId;
     private String name;
-    private String password;
     private String email;
     private Integer numberOfSmallPacks;
     private Integer silverCoin;
