@@ -52,6 +52,18 @@ public class DreamTeamApplication {
             card.setTeam(team);
             user.setTeam(team);
             teamRepository.save(team);
+
+            PageUser user2 = PageUser.builder().name("Gyuri").numberOfSmallPacks(1).email("gyuri@gaming.com").silverCoin(1000).build();
+            Card card2 = cardCreator.createRandomPlayer(user2);
+
+            Set<Card> myTeam2=new HashSet<>();
+            myTeam2.add(card2);
+
+            Team team2 = Team.builder().myTeam(myTeam2).build();
+
+            card2.setTeam(team2);
+            user2.setTeam(team2);
+            teamRepository.save(team2);
         };
 
     }
