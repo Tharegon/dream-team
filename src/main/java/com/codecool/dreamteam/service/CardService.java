@@ -104,5 +104,18 @@ public class CardService {
         PageUser user = pageUserRepository.getOne(userId);
         return user.getTeam().getMyTeam();
     }
+
+    public void buySmallPack(Long userId) {
+        try {
+            PageUser user = pageUserRepository.getOne(userId);
+            if (user.getSilverCoin()>0){
+                user.setSilverCoin(user.getSilverCoin()-50);
+                user.setNumberOfSmallPacks(user.getNumberOfSmallPacks()+1);
+                pageUserRepository.save(user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
 
