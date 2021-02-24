@@ -100,5 +100,9 @@ public class CardService {
     }
 
 
+    public Set<Card> getMyTeam(Long userId) {
+        PageUser user = pageUserRepository.getOne(userId);
+        return user.getTeam().getMyTeam();
+    }
 }
 

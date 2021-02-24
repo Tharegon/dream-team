@@ -70,9 +70,9 @@ public class CardController {
         cardService.addToMyTeam(id);
     }
 
-    /*@CrossOrigin(origins = "*")
+    @CrossOrigin(origins = "*")
     @GetMapping("/getMyTeam/{userId}")
     public Set<Card> getMyTeam(@PathVariable Long userId){
         return cardService.getMyTeam(userId);
-    }*/
+    }
 }
