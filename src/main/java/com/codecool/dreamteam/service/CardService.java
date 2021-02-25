@@ -134,8 +134,18 @@ public class CardService {
             redSkill = redSkill + rcard.getAllSkill();
         }
         System.out.println(blueSkill+"  "+redSkill);
-        if (blueSkill>redSkill) System.out.println("blue wins");
-        else System.out.println("red wins");
+        if (blueSkill>=redSkill){
+            blue.setWin(blue.getWin()+1);
+            red.setLose(red.getLose()+1);
+        }
+        else {
+            red.setWin(red.getWin()+1);
+            blue.setLose(blue.getLose()+1);
+        }
+        red.setMatchPlayed(red.getMatchPlayed()+1);
+        blue.setMatchPlayed(blue.getMatchPlayed()+1);
+        pageUserRepository.save(blue);
+        pageUserRepository.save(red);
     }
 }
 
