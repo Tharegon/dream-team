@@ -117,5 +117,35 @@ public class CardService {
             e.printStackTrace();
         }
     }
+
+    public void battle(Long blueId, Long redId) {
+        PageUser blue = pageUserRepository.getOne(blueId);
+        PageUser red = pageUserRepository.getOne(redId);
+        Set<Card> blueTeam = blue.getTeam().getMyTeam();
+        Set<Card> redTeam = red.getTeam().getMyTeam();
+        int blueSkill=0;
+        int redSkill=0;
+        for (Card bcard: blueTeam) {
+
+            blueSkill = blueSkill + bcard.getAllSkill();
+        }
+        for (Card rcard: redTeam) {
+
+            redSkill = redSkill + rcard.getAllSkill();
+        }
+        System.out.println(blueSkill+"  "+redSkill);
+        if (blueSkill>=redSkill){
+            blue.setWin(blue.getWin()+1);
+            red.setLose(red.getLose()+1);
+        }
+        else {
+            red.setWin(red.getWin()+1);
+            blue.setLose(blue.getLose()+1);
+        }
+        red.setMatchPlayed(red.getMatchPlayed()+1);
+        blue.setMatchPlayed(blue.getMatchPlayed()+1);
+        pageUserRepository.save(blue);
+        pageUserRepository.save(red);
+    }
 }
 

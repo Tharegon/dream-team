@@ -21,8 +21,6 @@ public class CardController {
     final
     CardService cardService;
 
-
-
     public CardController(CardService cardService) {
 
         this.cardService = cardService;
@@ -80,5 +78,11 @@ public class CardController {
     @GetMapping("/buySmallPack/{userId}")
     public void buySmallPack(@PathVariable Long userId){
         cardService.buySmallPack(userId);
+    }
+
+    @CrossOrigin(origins = "*")
+    @PostMapping("/battle/{blueId}/{redId}")
+    public void battle(@PathVariable Long blueId,@PathVariable Long redId){
+        cardService.battle(blueId,redId);
     }
 }

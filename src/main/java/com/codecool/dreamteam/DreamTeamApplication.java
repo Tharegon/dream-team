@@ -41,7 +41,10 @@ public class DreamTeamApplication {
     @Profile("production")
     public CommandLineRunner init() {
         return args -> {
-            PageUser user = PageUser.builder().name("Pista").numberOfSmallPacks(1).email("pista@gaming.com").silverCoin(1000).build();
+            PageUser user = PageUser.builder().name("Pista")
+                    .numberOfSmallPacks(1).email("pista@gaming.com")
+                    .matchPlayed(0).lose(0).win(0)
+                    .silverCoin(1000).build();
             Card card = cardCreator.createRandomPlayer(user);
 
             Set<Card> myTeam=new HashSet<>();
@@ -52,6 +55,21 @@ public class DreamTeamApplication {
             card.setTeam(team);
             user.setTeam(team);
             teamRepository.save(team);
+
+            PageUser user2 = PageUser.builder().name("Gyuri")
+                    .numberOfSmallPacks(1).email("gyuri@gaming.com")
+                    .matchPlayed(0).lose(0).win(0)
+                    .silverCoin(1000).build();
+            Card card2 = cardCreator.createRandomPlayer(user2);
+
+            Set<Card> myTeam2=new HashSet<>();
+            myTeam2.add(card2);
+
+            Team team2 = Team.builder().myTeam(myTeam2).build();
+
+            card2.setTeam(team2);
+            user2.setTeam(team2);
+            teamRepository.save(team2);
         };
 
     }

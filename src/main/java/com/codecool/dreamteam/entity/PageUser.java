@@ -25,6 +25,9 @@ public class PageUser {
     private String email;
     private Integer numberOfSmallPacks;
     private Integer silverCoin;
+    private Integer win;
+    private Integer lose;
+    private Integer matchPlayed;
     @OneToOne
     private Team team;
     @OneToMany(mappedBy = "pageUser", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
