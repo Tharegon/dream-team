@@ -19,14 +19,17 @@ import java.util.Set;
 @Service
 public class CardService {
 
-    @Autowired
-    private PageUserRepository pageUserRepository;
-    @Autowired
-    private CardRepository cardRepository;
-    @Autowired
-    private CardCreator cardCreator;
-    @Autowired
-    private TeamRepository teamRepository;
+    private final PageUserRepository pageUserRepository;
+    private final CardRepository cardRepository;
+    private final CardCreator cardCreator;
+    private final TeamRepository teamRepository;
+
+    public CardService(PageUserRepository pageUserRepository, CardRepository cardRepository, CardCreator cardCreator, TeamRepository teamRepository) {
+        this.pageUserRepository = pageUserRepository;
+        this.cardRepository = cardRepository;
+        this.cardCreator = cardCreator;
+        this.teamRepository = teamRepository;
+    }
 
     public Set<Card> getMyCard(Long id) {
         return pageUserRepository.findById(id).get().getMyCards();
@@ -136,10 +139,15 @@ public class CardService {
         System.out.println(blueSkill+"  "+redSkill);
         if (blueSkill>=redSkill){
             blue.setWin(blue.getWin()+1);
+            blue.setSilverCoin(blue.getSilverCoin()+25);
             red.setLose(red.getLose()+1);
+            red.setSilverCoin(red.getSilverCoin()+5);
+
         }
         else {
             red.setWin(red.getWin()+1);
+            red.setSilverCoin(red.getSilverCoin()+25);
+            blue.setSilverCoin(blue.getSilverCoin()+5);
             blue.setLose(blue.getLose()+1);
         }
         red.setMatchPlayed(red.getMatchPlayed()+1);
