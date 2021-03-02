@@ -2,6 +2,7 @@ package com.codecool.dreamteam.controller;
 
 
 import com.codecool.dreamteam.entity.Card;
+import com.codecool.dreamteam.entity.CombatLog;
 import com.codecool.dreamteam.entity.PageUser;
 import com.codecool.dreamteam.repository.CardRepository;
 import com.codecool.dreamteam.repository.PageUserRepository;
@@ -39,50 +40,50 @@ public class CardController {
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/openSmallPack/{userId}")
+    @GetMapping("/open-small-pack/{userId}")
     public List<Card> openSmallPack(@PathVariable Long userId){
         return  cardService.openSmallPack(userId);
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/openMediumPack/{userId}")
+    @GetMapping("/open-medium-pack/{userId}")
     public List<Card> openMediumPack(@PathVariable Long userId){
         return  cardService.openMediumPack(userId);
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/openLargePack/{userId}")
+    @GetMapping("/open-large-pack/{userId}")
     public List<Card> openLargePack(@PathVariable Long userId){
         return  cardService.openLargePack(userId);
     }
 
     @CrossOrigin(origins = "*")
-    @RequestMapping(value = "/deleteCard/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete-card/{id}", method = RequestMethod.DELETE)
     public void deleteCard(@PathVariable Long id){
         cardService.deleteCard(id);
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/addToMyTeam/{id}")
+    @GetMapping("/add-to-my-team/{id}")
     public void addToMyTeam(@PathVariable Long id){
         cardService.addToMyTeam(id);
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/getMyTeam/{userId}")
+    @GetMapping("/get-my-team/{userId}")
     public Set<Card> getMyTeam(@PathVariable Long userId){
         return cardService.getMyTeam(userId);
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/buySmallPack/{userId}")
+    @GetMapping("/buy-small-pack/{userId}")
     public void buySmallPack(@PathVariable Long userId){
         cardService.buySmallPack(userId);
     }
 
     @CrossOrigin(origins = "*")
     @PostMapping("/battle/{blueId}/{redId}")
-    public void battle(@PathVariable Long blueId,@PathVariable Long redId){
-        cardService.battle(blueId,redId);
+    public void battle(@PathVariable Long blueId, @PathVariable Long redId){
+         cardService.battle(blueId,redId);
     }
 }
