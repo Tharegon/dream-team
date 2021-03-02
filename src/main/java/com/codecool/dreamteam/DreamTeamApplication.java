@@ -21,20 +21,27 @@ import java.util.Set;
 @SpringBootApplication
 public class DreamTeamApplication {
 
+    public DreamTeamApplication(CardRepository cardRepository, PageUserRepository pageUserRepository, TeamRepository teamRepository, CardCreator cardCreator) {
+        this.cardRepository = cardRepository;
+        this.pageUserRepository = pageUserRepository;
+        this.teamRepository = teamRepository;
+        this.cardCreator = cardCreator;
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(DreamTeamApplication.class, args);
     }
 
-    @Autowired
+    final
     CardRepository cardRepository;
 
-    @Autowired
+    final
     PageUserRepository pageUserRepository;
 
-    @Autowired
+    final
     TeamRepository teamRepository;
 
-    @Autowired
+    final
     CardCreator cardCreator;
 
     @Bean
@@ -75,3 +82,4 @@ public class DreamTeamApplication {
     }
 
 }
+
