@@ -67,7 +67,7 @@ public class CardCreator {
     }
 
     private String[] getRandomPlayer() {
-        return players.get(Util.randomNumMax(this.players.size()));
+        return this.players.get(Util.randomNumMax(this.players.size()));
     }
 
     private Role getRole(String role){
