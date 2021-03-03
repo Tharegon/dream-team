@@ -64,12 +64,12 @@ public class CardService {
 
     public List<Card> openMediumPack(Long userId) {
         PageUser user = pageUserRepository.findById(userId).get();
-        if (user.getNumberOfSmallPacks() > 0) {
+        if (user.getNumberOfMediumPacks() > 0) {
             int medium = 10;
 
             List<Card> cards = cardCreator.createPack(medium, user);
             cardRepository.saveAll(cards);
-            user.setNumberOfSmallPacks(user.getNumberOfSmallPacks() - 1);
+            user.setNumberOfMediumPacks(user.getNumberOfMediumPacks() - 1);
             pageUserRepository.save(user);
             return cards;
         }
@@ -78,12 +78,12 @@ public class CardService {
 
     public List<Card> openLargePack(Long userId) {
         PageUser user = pageUserRepository.findById(userId).get();
-        if (user.getNumberOfSmallPacks() > 0) {
+        if (user.getNumberOfLargePacks() > 0) {
             int large = 20;
 
             List<Card> cards = cardCreator.createPack(large, user);
             cardRepository.saveAll(cards);
-            user.setNumberOfSmallPacks(user.getNumberOfSmallPacks() - 1);
+            user.setNumberOfLargePacks(user.getNumberOfLargePacks() - 1);
             pageUserRepository.save(user);
             return cards;
         }
