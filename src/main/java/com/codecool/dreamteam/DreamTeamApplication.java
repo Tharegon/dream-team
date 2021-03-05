@@ -49,7 +49,7 @@ public class DreamTeamApplication {
     public CommandLineRunner init() {
         return args -> {
             PageUser user = PageUser.builder().name("Pista")
-                    .numberOfSmallPacks(1).email("pista@gaming.com")
+                    .numberOfSmallPacks(1).numberOfLargePacks(1).numberOfMediumPacks(1).email("pista@gaming.com")
                     .matchPlayed(0).lose(0).win(0)
                     .silverCoin(1000).build();
             Card card = cardCreator.createRandomPlayer(user);
@@ -64,7 +64,7 @@ public class DreamTeamApplication {
             teamRepository.save(team);
 
             PageUser user2 = PageUser.builder().name("Gyuri")
-                    .numberOfSmallPacks(1).email("gyuri@gaming.com")
+                    .numberOfSmallPacks(1).numberOfLargePacks(1).numberOfMediumPacks(1).email("gyuri@gaming.com")
                     .matchPlayed(0).lose(0).win(0)
                     .silverCoin(1000).build();
             Card card2 = cardCreator.createRandomPlayer(user2);

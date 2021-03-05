@@ -24,6 +24,8 @@ public class PageUser {
     private String name;
     private String email;
     private Integer numberOfSmallPacks;
+    private Integer numberOfMediumPacks;
+    private Integer numberOfLargePacks;
     private Integer silverCoin;
     private Integer win;
     private Integer lose;
