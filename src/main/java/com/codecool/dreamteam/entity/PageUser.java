@@ -30,6 +30,7 @@ public class PageUser {
     private Integer win;
     private Integer lose;
     private Integer matchPlayed;
+    private Integer point;
     @OneToOne
     private Team team;
     @OneToMany(mappedBy = "pageUser", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
