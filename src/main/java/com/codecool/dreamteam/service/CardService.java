@@ -127,6 +127,7 @@ public class CardService {
         PageUser red = pageUserRepository.getOne(redId);
         Set<Card> blueTeam = blue.getTeam().getMyTeam();
         Set<Card> redTeam = red.getTeam().getMyTeam();
+        int pointDiff = calculatePointDifference(blue,red);
         CombatLog log = CombatLog.builder().date(LocalDateTime.now()).blue(blue).red(red).build();
         int blueSkill=0;
         int redSkill=0;
@@ -166,6 +167,12 @@ public class CardService {
         pageUserRepository.save(blue);
         pageUserRepository.save(red);
         logRepository.save(log);
+    }
+
+    private int calculatePointDifference(PageUser blue, PageUser red) {
+        int value = blue.getPoint() - red.getPoint();
+        if (value<0) value *= -1;
+        return (int) (value+0.1*value);
     }
 }
 
