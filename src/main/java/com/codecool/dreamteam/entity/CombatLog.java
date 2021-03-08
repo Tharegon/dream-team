@@ -26,6 +26,8 @@ public class CombatLog {
     private String winner;
     private String loser;
     private String text;
+    private Integer pointLoss;
+    private Integer pointGain;
     @OneToOne
     private PageUser blue;
     @OneToOne
