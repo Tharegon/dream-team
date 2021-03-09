@@ -15,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Builder
-public class PageUser {
+public class PageUser implements Comparable{
 
     @Id
     @GeneratedValue
@@ -37,4 +37,9 @@ public class PageUser {
     @Singular
     @EqualsAndHashCode.Exclude
     private Set<Card> myCards;
+
+    @Override
+    public int compareTo(Object o){
+        return this.getPoint().compareTo(((PageUser) o).getPoint());
+    }
 }
