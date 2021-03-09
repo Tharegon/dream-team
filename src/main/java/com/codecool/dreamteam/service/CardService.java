@@ -12,6 +12,8 @@ import com.codecool.dreamteam.repository.TeamRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -190,6 +192,12 @@ public class CardService {
             skill = skill + card.getAllSkill();
         }
         return skill;
+    }
+
+    public List<PageUser> ledger() {
+        List<PageUser> users = pageUserRepository.findAll();
+        Collections.sort(users,Collections.reverseOrder());
+        return users;
     }
 }
 
