@@ -3,6 +3,7 @@ package com.codecool.dreamteam.controller;
 
 import com.codecool.dreamteam.entity.Card;
 import com.codecool.dreamteam.entity.CombatLog;
+import com.codecool.dreamteam.entity.PageUser;
 import com.codecool.dreamteam.service.CardService;
 import org.springframework.web.bind.annotation.*;
 
@@ -79,5 +80,10 @@ public class CardController {
     @GetMapping("/battle/{blueId}/{redId}")
     public CombatLog battle(@PathVariable Long blueId, @PathVariable Long redId){
         return cardService.battle(blueId, redId);
+    }
+    @CrossOrigin(origins = "*")
+    @GetMapping("/ledger")
+    public List<PageUser> ledger(){
+        return cardService.ledger();
     }
 }
