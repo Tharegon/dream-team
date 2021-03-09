@@ -3,16 +3,10 @@ package com.codecool.dreamteam.controller;
 
 import com.codecool.dreamteam.entity.Card;
 import com.codecool.dreamteam.entity.CombatLog;
-import com.codecool.dreamteam.entity.PageUser;
-import com.codecool.dreamteam.repository.CardRepository;
-import com.codecool.dreamteam.repository.PageUserRepository;
-import com.codecool.dreamteam.service.CardCreator;
 import com.codecool.dreamteam.service.CardService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 @RestController
@@ -82,8 +76,8 @@ public class CardController {
     }
 
     @CrossOrigin(origins = "*")
-    @PostMapping("/battle/{blueId}/{redId}")
-    public void battle(@PathVariable Long blueId, @PathVariable Long redId){
-         cardService.battle(blueId,redId);
+    @GetMapping("/battle/{blueId}/{redId}")
+    public CombatLog battle(@PathVariable Long blueId, @PathVariable Long redId){
+        return cardService.battle(blueId, redId);
     }
 }
