@@ -15,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Entity
 @Builder
-public class PageUser {
+public class PageUser implements Comparable{
 
     @Id
     @GeneratedValue
@@ -30,10 +30,16 @@ public class PageUser {
     private Integer win;
     private Integer lose;
     private Integer matchPlayed;
+    private Integer point;
     @OneToOne
     private Team team;
     @OneToMany(mappedBy = "pageUser", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @Singular
     @EqualsAndHashCode.Exclude
     private Set<Card> myCards;
+
+    @Override
+    public int compareTo(Object o){
+        return this.getPoint().compareTo(((PageUser) o).getPoint());
+    }
 }

@@ -18,6 +18,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static com.codecool.dreamteam.util.Util.randomPoint;
+
 @SpringBootApplication
 public class DreamTeamApplication {
 
@@ -50,7 +52,7 @@ public class DreamTeamApplication {
         return args -> {
             PageUser user = PageUser.builder().name("Pista")
                     .numberOfSmallPacks(1).numberOfLargePacks(1).numberOfMediumPacks(1).email("pista@gaming.com")
-                    .matchPlayed(0).lose(0).win(0)
+                    .matchPlayed(0).lose(0).win(0).point(randomPoint())
                     .silverCoin(1000).build();
             Card card = cardCreator.createRandomPlayer(user);
 
@@ -65,7 +67,7 @@ public class DreamTeamApplication {
 
             PageUser user2 = PageUser.builder().name("Gyuri")
                     .numberOfSmallPacks(1).numberOfLargePacks(1).numberOfMediumPacks(1).email("gyuri@gaming.com")
-                    .matchPlayed(0).lose(0).win(0)
+                    .matchPlayed(0).lose(0).win(0).point(randomPoint())
                     .silverCoin(1000).build();
             Card card2 = cardCreator.createRandomPlayer(user2);
 

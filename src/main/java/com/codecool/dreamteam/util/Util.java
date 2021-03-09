@@ -15,4 +15,10 @@ public class Util {
         // min 0
         return rand.nextInt(num);
     }
+
+    public static int randomPoint(){
+        Random rand = new Random();
+        // min 1900
+        return rand.nextInt(300)+1900;
+    }
 }
