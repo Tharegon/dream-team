@@ -1,6 +1,7 @@
 package com.codecool.dreamteam.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -29,7 +30,9 @@ public class CombatLog {
     private Integer pointLoss;
     private Integer pointGain;
     @OneToOne
+    @JsonIgnore
     private PageUser blue;
     @OneToOne
+    @JsonIgnore
     private PageUser red;
 }
