@@ -124,6 +124,32 @@ public class CardService {
         }
     }
 
+    public void buyMediumPack(Long userId) {
+        try {
+            PageUser user = pageUserRepository.getOne(userId);
+            if (user.getSilverCoin() > 0) {
+                user.setSilverCoin(user.getSilverCoin() - 100);
+                user.setNumberOfMediumPacks(user.getNumberOfMediumPacks() + 1);
+                pageUserRepository.save(user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void buyLargePack(Long userId) {
+        try {
+            PageUser user = pageUserRepository.getOne(userId);
+            if (user.getSilverCoin() > 0) {
+                user.setSilverCoin(user.getSilverCoin() - 100);
+                user.setNumberOfLargePacks(user.getNumberOfLargePacks() + 1);
+                pageUserRepository.save(user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public CombatLog battle(Long blueId, Long redId) {
         PageUser blue = pageUserRepository.getOne(blueId);
         PageUser red = pageUserRepository.getOne(redId);
