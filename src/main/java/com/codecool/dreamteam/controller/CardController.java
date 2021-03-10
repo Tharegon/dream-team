@@ -35,24 +35,6 @@ public class CardController {
     }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/open-small-pack/{userId}")
-    public List<Card> openSmallPack(@PathVariable Long userId){
-        return  cardService.openSmallPack(userId);
-    }
-
-    @CrossOrigin(origins = "*")
-    @GetMapping("/open-medium-pack/{userId}")
-    public List<Card> openMediumPack(@PathVariable Long userId){
-        return  cardService.openMediumPack(userId);
-    }
-
-    @CrossOrigin(origins = "*")
-    @GetMapping("/open-large-pack/{userId}")
-    public List<Card> openLargePack(@PathVariable Long userId){
-        return  cardService.openLargePack(userId);
-    }
-
-    @CrossOrigin(origins = "*")
     @RequestMapping(value = "/delete-card/{id}", method = RequestMethod.DELETE)
     public void deleteCard(@PathVariable Long id){
         cardService.deleteCard(id);
@@ -70,20 +52,10 @@ public class CardController {
         return cardService.getMyTeam(userId);
     }
 
-    @CrossOrigin(origins = "*")
-    @GetMapping("/buy-small-pack/{userId}")
-    public void buySmallPack(@PathVariable Long userId){
-        cardService.buySmallPack(userId);
-    }
 
     @CrossOrigin(origins = "*")
     @GetMapping("/battle/{blueId}/{redId}")
     public CombatLog battle(@PathVariable Long blueId, @PathVariable Long redId){
         return cardService.battle(blueId, redId);
-    }
-    @CrossOrigin(origins = "*")
-    @GetMapping("/ledger")
-    public List<PageUser> ledger(){
-        return cardService.ledger();
     }
 }
