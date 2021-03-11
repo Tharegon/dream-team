@@ -1,9 +1,11 @@
 package com.codecool.dreamteam;
 
 import com.codecool.dreamteam.entity.Card;
+import com.codecool.dreamteam.entity.PageUser;
 import com.codecool.dreamteam.entity.Quality;
 import com.codecool.dreamteam.entity.Role;
 import com.codecool.dreamteam.repository.CardRepository;
+import com.codecool.dreamteam.repository.PageUserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -21,11 +24,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-@ActiveProfiles("test")
 class DreamTeamApplicationTests {
 
     @Autowired
     private CardRepository cardRepository;
+
+    @Autowired
+    private PageUserRepository pageUserRepository;
 
     @Autowired
     private TestEntityManager entityManager;
@@ -82,5 +87,16 @@ class DreamTeamApplicationTests {
         assertThat(bela.getEarlyGameSkill()).isEqualTo(23);
         assertThat(bela.getMidGameSkill()).isEqualTo(32);
         assertThat(bela.getLateGameSkill()).isEqualTo(23);
+    }
+
+    @Test
+    void savePageUser(){
+        PageUser user = PageUser.builder()
+                .build();
+        pageUserRepository.save(user);
+
+        assertThat(pageUserRepository.findAll().size()).isEqualTo(1);
+
+
     }
 }
