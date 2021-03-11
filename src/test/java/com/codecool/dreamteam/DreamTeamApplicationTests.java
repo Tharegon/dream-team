@@ -95,8 +95,15 @@ class DreamTeamApplicationTests {
                 .build();
         pageUserRepository.save(user);
 
-        assertThat(pageUserRepository.findAll().size()).isEqualTo(1);
+        assertThat(pageUserRepository.findAll().size()).isGreaterThan(0);
+    }
 
+    @Test
+    void savePageUserWithName(){
+        PageUser user = PageUser.builder().name("player")
+                .build();
+        pageUserRepository.save(user);
 
+        assertThat(pageUserRepository.findByName("player").getName()).isEqualTo("player");
     }
 }
