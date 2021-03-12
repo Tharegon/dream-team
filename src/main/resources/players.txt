@@ -1,0 +1,5 @@
+Rasmus Winther,Caps,MID,text,link,link,G2 Esport
+Martin Larsson,Rekkles,BOT,text,link,link,G2 Esport
+Martin Hansen,Wunder,TOP,text,link,link,G2 Esport
+Marcin Jankowsk,Jankos,JGL,text,link,link,G2 Esport
+Mihael Mehle,Mikyx,SUP,text,link,link,G2 Esport
