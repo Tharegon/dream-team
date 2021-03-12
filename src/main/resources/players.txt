@@ -3,3 +3,8 @@ Martin Larsson,Rekkles,BOT,text,link,link,G2 Esport
 Martin Hansen,Wunder,TOP,text,link,link,G2 Esport
 Marcin Jankowsk,Jankos,JGL,text,link,link,G2 Esport
 Mihael Mehle,Mikyx,SUP,text,link,link,G2 Esport
+Odoamne,Andrei Pascu,TOP,text,link,link,Rogue
+Inspired,Kacper Słoma,JGL,text,link,link,Rogue
+Larssen,Emil Larsson,MID,text,link,link,Rogue
+Hans Sama,Steven Liv,BOT,text,link,link,Rogue
+Trymbi,Adrian Trybus,SUP,text,link,link,Rogue
