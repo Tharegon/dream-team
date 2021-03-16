@@ -26,7 +26,6 @@ public class CombatLog {
     private LocalDateTime date;
     private String winner;
     private String loser;
-    private String text;
     private String earlyGameText;
     private String midGameText;
     private String lateGameText;
