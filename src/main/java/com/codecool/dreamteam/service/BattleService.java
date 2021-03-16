@@ -31,38 +31,11 @@ public class BattleService {
         Set<Card> redTeam = red.getTeam().getMyTeam();
         int pointDiff = calculatePointDifference(blue, red);
         CombatLog log = CombatLog.builder().date(LocalDateTime.now()).blue(blue).red(red).build();
-        int blueSkill = calculateSkill(blueTeam);
-        int redSkill = calculateSkill(redTeam);
-        System.out.println("Blue side points: " + blueSkill + " Red Side points: " + redSkill);
-        log.setText("Blue side points: " + blueSkill + " Red Side points: " + redSkill);
-        if (blueSkill >= redSkill) {
-            blue.setWin(blue.getWin() + 1);
-            blue.setSilverCoin(blue.getSilverCoin() + 25);
-            blue.setPoint(blue.getPoint() + pointDiff);
-            log.setPointGain(pointDiff);
-            log.setWinner("blue");
-
-            red.setLose(red.getLose() + 1);
-            red.setSilverCoin(red.getSilverCoin() + 5);
-            red.setPoint(red.getPoint() - pointDiff / 2);
-            log.setPointLoss(pointDiff / 2);
-
-            log.setLoser("red");
-
-        } else {
-            red.setWin(red.getWin() + 1);
-            red.setSilverCoin(red.getSilverCoin() + 25);
-            red.setPoint(red.getPoint() + pointDiff);
-            log.setPointGain(pointDiff);
-            log.setWinner("red");
-
-            blue.setSilverCoin(blue.getSilverCoin() + 5);
-            blue.setLose(blue.getLose() + 1);
-            blue.setPoint(blue.getPoint() - pointDiff / 2);
-            log.setPointLoss(pointDiff / 2);
-            log.setLoser("blue");
-
-        }
+        calculateEarlyGameWinner(blueTeam, redTeam, log);
+        calculateMidGameWinner(blueTeam, redTeam, log);
+        calculateLateGameWinner(blueTeam, redTeam, log);
+        winning(log, pointDiff, getWinner(log));
+        losing(log, pointDiff, getLoser(log));
         System.out.println("blue point: " + blue.getPoint());
         System.out.println("red point: " + red.getPoint());
         System.out.println("point loss in combat log: " + log.getPointLoss());
@@ -72,7 +45,6 @@ public class BattleService {
         pageUserRepository.save(blue);
         pageUserRepository.save(red);
         logRepository.save(log);
-        System.out.println(log.getCombatId());
         return log;
     }
 
@@ -118,15 +90,25 @@ public class BattleService {
         return skill;
     }
 
+    private PageUser getWinner(CombatLog combatLog) {
+        if (combatLog.getBlueScore() >= 2) return combatLog.getBlue();
+        return combatLog.getRed();
+    }
+
+    private PageUser getLoser(CombatLog combatLog) {
+        if (combatLog.getBlueScore() >= 2) return combatLog.getRed();
+        return combatLog.getBlue();
+    }
+
     private void calculateEarlyGameWinner(Set<Card> blueTeam, Set<Card> redTeam, CombatLog combatLog) {
         int blueEarlySkill = calculateEarlySkill(blueTeam);
         int redEarlySkill = calculateEarlySkill(redTeam);
         if (blueEarlySkill >= redEarlySkill) {
             combatLog.setEarlyGameText("Blue side had won in the Early Game by: Blue: " + blueEarlySkill + " Red: " + redEarlySkill);
-            combatLog.setBlueScore(+1);
+            combatLog.setBlueScore(combatLog.getBlueScore() + 1);
         } else {
             combatLog.setEarlyGameText("Red side had won in the Early Game by: Red: " + redEarlySkill + " Blue: " + blueEarlySkill);
-            combatLog.setRedScore(+1);
+            combatLog.setRedScore(combatLog.getRedScore() + 1);
         }
     }
 
@@ -135,24 +117,38 @@ public class BattleService {
         int redMidSkill = calculateMidSkill(redTeam);
         if (blueMidSkill >= redMidSkill) {
             combatLog.setMidGameText("Blue side had won in the Mid Game by: Blue: " + blueMidSkill + " Red: " + redMidSkill);
-            combatLog.setBlueScore(+1);
+            combatLog.setBlueScore(combatLog.getBlueScore() + 1);
         } else {
             combatLog.setMidGameText("Red side had won in the Mid Game by: Red: " + redMidSkill + " Blue: " + blueMidSkill);
-            combatLog.setRedScore(+1);
+            combatLog.setRedScore(combatLog.getRedScore() + 1);
         }
     }
-    private void calculateLateGameWinner(Set<Card> blueTeam, Set<Card> redTeam, CombatLog combatLog){
+
+    private void calculateLateGameWinner(Set<Card> blueTeam, Set<Card> redTeam, CombatLog combatLog) {
         int blueLateSkill = calculateLateSkill(blueTeam);
         int redLateSkill = calculateLateSkill(redTeam);
         if (blueLateSkill >= redLateSkill) {
-            combatLog.setMidGameText("Blue side had won in the Late Game by: Blue: " + blueLateSkill + " Red: " + redLateSkill);
-            combatLog.setBlueScore(+1);
+            combatLog.setLateGameText("Blue side had won in the Late Game by: Blue: " + blueLateSkill + " Red: " + redLateSkill);
+            combatLog.setBlueScore(combatLog.getBlueScore() + 1);
         } else {
-            combatLog.setMidGameText("Red side had won in the Late Game by: Red: " + redLateSkill + " Blue: " + blueLateSkill);
-            combatLog.setRedScore(+1);
+            combatLog.setLateGameText("Red side had won in the Late Game by: Red: " + redLateSkill + " Blue: " + blueLateSkill);
+            combatLog.setRedScore(combatLog.getRedScore() + 1);
         }
     }
-    private Boolean checkWinner(CombatLog combatLog) {
-        return combatLog.getRedScore() >= 2 || combatLog.getBlueScore() >= 2;
+
+    private void winning(CombatLog combatLog, int pointDiff, PageUser winner) {
+        combatLog.setWinner(winner.getName());
+        combatLog.setPointGain(pointDiff);
+        winner.setMatchPlayed(winner.getMatchPlayed() + 1);
+        winner.setPoint(winner.getPoint()+pointDiff);
+        winner.setWin(winner.getWin() + 1);
+    }
+
+    private void losing(CombatLog combatLog, int pointDiff, PageUser loser) {
+        combatLog.setLoser(loser.getName());
+        combatLog.setPointLoss(pointDiff / 2);
+        loser.setMatchPlayed(loser.getMatchPlayed() + 1);
+        loser.setPoint(loser.getPoint()-combatLog.getPointLoss());
+        loser.setLose(loser.getLose() + 1);
     }
 }
