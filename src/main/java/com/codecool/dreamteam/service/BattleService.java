@@ -13,10 +13,13 @@ import java.util.Set;
 
 @Service
 public class BattleService {
-    @Autowired
-    private PageUserRepository pageUserRepository;
-    @Autowired
-    private CombatLogRepository logRepository;
+    private final PageUserRepository pageUserRepository;
+    private final CombatLogRepository logRepository;
+
+    public BattleService(PageUserRepository pageUserRepository, CombatLogRepository logRepository) {
+        this.pageUserRepository = pageUserRepository;
+        this.logRepository = logRepository;
+    }
 
     public CombatLog battle(Long blueId, Long redId) {
         PageUser blue = pageUserRepository.getOne(blueId);
@@ -97,14 +100,34 @@ public class BattleService {
         return skill;
     }
 
+    private int calculateMidSkill(Set<Card> team) {
+        int skill = 0;
+        for (Card card : team) {
+
+            skill = skill + card.getMidGameSkill();
+        }
+        return skill;
+    }
+
     private void calculateEarlyGameWinner(Set<Card> blueTeam, Set<Card> redTeam, CombatLog combatLog) {
         int blueEarlySkill = calculateEarlySkill(blueTeam);
         int redEarlySkill = calculateEarlySkill(redTeam);
         if (blueEarlySkill >= redEarlySkill) {
-            combatLog.setEarlyGameText("Blue side had won by: Blue: " + blueEarlySkill + " Red: " + redEarlySkill);
+            combatLog.setEarlyGameText("Blue side had won in the Early Game by: Blue: " + blueEarlySkill + " Red: " + redEarlySkill);
             combatLog.setBlueScore(+1);
         } else {
-            combatLog.setEarlyGameText("Red side had won by: Red: " + redEarlySkill + " Blue: " + blueEarlySkill);
+            combatLog.setEarlyGameText("Red side had won in the Early Game by: Red: " + redEarlySkill + " Blue: " + blueEarlySkill);
+            combatLog.setRedScore(+1);
+        }
+    }
+    private void calculateMidGameWinner(Set<Card> blueTeam, Set<Card> redTeam, CombatLog combatLog){
+        int blueMidSkill = calculateMidSkill(blueTeam);
+        int redMidSkill = calculateMidSkill(redTeam);
+        if (blueMidSkill>=redMidSkill){
+            combatLog.setMidGameText("Blue side had won in the Early Game by: Blue: " + blueMidSkill + " Red: " + redMidSkill);
+            combatLog.setBlueScore(+1);
+        }else{
+            combatLog.setMidGameText("Red side had won in the Early Game by: Red: " + redMidSkill + " Blue: " + blueMidSkill);
             combatLog.setRedScore(+1);
         }
     }
