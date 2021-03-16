@@ -131,4 +131,7 @@ public class BattleService {
             combatLog.setRedScore(+1);
         }
     }
+    private Boolean checkWinner(CombatLog combatLog){
+        return combatLog.getRedScore() >= 2 || combatLog.getBlueScore() >= 2;
+    }
 }
