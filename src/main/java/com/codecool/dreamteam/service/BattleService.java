@@ -109,6 +109,15 @@ public class BattleService {
         return skill;
     }
 
+    private int calculateLateSkill(Set<Card> team) {
+        int skill = 0;
+        for (Card card : team) {
+
+            skill = skill + card.getLateGameSkill();
+        }
+        return skill;
+    }
+
     private void calculateEarlyGameWinner(Set<Card> blueTeam, Set<Card> redTeam, CombatLog combatLog) {
         int blueEarlySkill = calculateEarlySkill(blueTeam);
         int redEarlySkill = calculateEarlySkill(redTeam);
