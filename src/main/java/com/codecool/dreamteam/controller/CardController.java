@@ -53,9 +53,5 @@ public class CardController {
     }
 
 
-    @CrossOrigin(origins = "*")
-    @GetMapping("/battle/{blueId}/{redId}")
-    public CombatLog battle(@PathVariable Long blueId, @PathVariable Long redId){
-        return cardService.battle(blueId, redId);
-    }
+
 }
