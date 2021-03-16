@@ -129,18 +129,30 @@ public class BattleService {
             combatLog.setRedScore(+1);
         }
     }
-    private void calculateMidGameWinner(Set<Card> blueTeam, Set<Card> redTeam, CombatLog combatLog){
+
+    private void calculateMidGameWinner(Set<Card> blueTeam, Set<Card> redTeam, CombatLog combatLog) {
         int blueMidSkill = calculateMidSkill(blueTeam);
         int redMidSkill = calculateMidSkill(redTeam);
-        if (blueMidSkill>=redMidSkill){
-            combatLog.setMidGameText("Blue side had won in the Early Game by: Blue: " + blueMidSkill + " Red: " + redMidSkill);
+        if (blueMidSkill >= redMidSkill) {
+            combatLog.setMidGameText("Blue side had won in the Mid Game by: Blue: " + blueMidSkill + " Red: " + redMidSkill);
             combatLog.setBlueScore(+1);
-        }else{
-            combatLog.setMidGameText("Red side had won in the Early Game by: Red: " + redMidSkill + " Blue: " + blueMidSkill);
+        } else {
+            combatLog.setMidGameText("Red side had won in the Mid Game by: Red: " + redMidSkill + " Blue: " + blueMidSkill);
             combatLog.setRedScore(+1);
         }
     }
-    private Boolean checkWinner(CombatLog combatLog){
+    private void calculateLateGameWinner(Set<Card> blueTeam, Set<Card> redTeam, CombatLog combatLog){
+        int blueLateSkill = calculateLateSkill(blueTeam);
+        int redLateSkill = calculateLateSkill(redTeam);
+        if (blueLateSkill >= redLateSkill) {
+            combatLog.setMidGameText("Blue side had won in the Late Game by: Blue: " + blueLateSkill + " Red: " + redLateSkill);
+            combatLog.setBlueScore(+1);
+        } else {
+            combatLog.setMidGameText("Red side had won in the Late Game by: Red: " + redLateSkill + " Blue: " + blueLateSkill);
+            combatLog.setRedScore(+1);
+        }
+    }
+    private Boolean checkWinner(CombatLog combatLog) {
         return combatLog.getRedScore() >= 2 || combatLog.getBlueScore() >= 2;
     }
 }
