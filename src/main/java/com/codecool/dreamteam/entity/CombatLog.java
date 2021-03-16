@@ -30,6 +30,8 @@ public class CombatLog {
     private String earlyGameText;
     private String midGameText;
     private String lateGameText;
+    private int blueScore;
+    private int redScore;
     private Integer pointLoss;
     private Integer pointGain;
     @OneToOne
