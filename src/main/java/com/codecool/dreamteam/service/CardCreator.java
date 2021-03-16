@@ -10,8 +10,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 
 @Service
@@ -19,18 +22,21 @@ public class CardCreator {
     private List<String[]> players;
 
     public CardCreator() {
-        List<String[]> customPlayers = new ArrayList<>();
-        String[] caps = {"Rasmus Winther","Caps", "MID", "text","link","link","G2 Esport"};
-        String[] rekkles = {"Martin Larsson","Rekkles", "BOT", "text","link","link","G2 Esport"};
-        String[] wunder = {"Martin Hansen","Wunder", "TOP", "text","link","link","G2 Esport"};
-        String[] jankos = {"Marcin Jankowsk","Jankos", "JGL", "text","link","link","G2 Esport"};
-        String[] mikyx = {"Mihael Mehle","Mikyx", "SUP", "text","link","link","G2 Esport"};
-        customPlayers.add(caps);
-        customPlayers.add(rekkles);
-        customPlayers.add(wunder);
-        customPlayers.add(jankos);
-        customPlayers.add(mikyx);
-        this.players = customPlayers;
+        try {
+            List<String[]> customPlayers = new ArrayList<>();
+            File myFile = new File("src/main/resources/players.txt");
+            Scanner myReader = new Scanner(myFile);
+            while (myReader.hasNextLine()) {
+                String data = myReader.nextLine();
+                String[] player = data.split(",");
+                customPlayers.add(player);
+            }
+            myReader.close();
+            this.players=customPlayers;
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
     }
 
     public Card createRandomPlayer(PageUser user){
