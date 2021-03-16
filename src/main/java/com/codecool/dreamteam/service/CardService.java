@@ -153,8 +153,8 @@ public class CardService {
     public CombatLog battle(Long blueId, Long redId) {
         PageUser blue = pageUserRepository.getOne(blueId);
         PageUser red = pageUserRepository.getOne(redId);
-        System.out.println("blue points "+blue.getPoint());
-        System.out.println("red points " +red.getPoint());
+        System.out.println("blue points " + blue.getPoint());
+        System.out.println("red points " + red.getPoint());
         System.out.println("---------------");
         Set<Card> blueTeam = blue.getTeam().getMyTeam();
         Set<Card> redTeam = red.getTeam().getMyTeam();
@@ -167,35 +167,35 @@ public class CardService {
         if (blueSkill >= redSkill) {
             blue.setWin(blue.getWin() + 1);
             blue.setSilverCoin(blue.getSilverCoin() + 25);
-            blue.setPoint(blue.getPoint()+pointDiff);
+            blue.setPoint(blue.getPoint() + pointDiff);
             log.setPointGain(pointDiff);
             log.setWinner("blue");
 
             red.setLose(red.getLose() + 1);
             red.setSilverCoin(red.getSilverCoin() + 5);
-            red.setPoint(red.getPoint()-pointDiff/2);
-            log.setPointLoss( pointDiff/2);
+            red.setPoint(red.getPoint() - pointDiff / 2);
+            log.setPointLoss(pointDiff / 2);
 
             log.setLoser("red");
 
         } else {
             red.setWin(red.getWin() + 1);
             red.setSilverCoin(red.getSilverCoin() + 25);
-            red.setPoint(red.getPoint()+pointDiff);
+            red.setPoint(red.getPoint() + pointDiff);
             log.setPointGain(pointDiff);
             log.setWinner("red");
 
             blue.setSilverCoin(blue.getSilverCoin() + 5);
             blue.setLose(blue.getLose() + 1);
-            blue.setPoint(blue.getPoint()-pointDiff/2);
-            log.setPointLoss( pointDiff/2);
+            blue.setPoint(blue.getPoint() - pointDiff / 2);
+            log.setPointLoss(pointDiff / 2);
             log.setLoser("blue");
 
         }
-        System.out.println("blue point: "+blue.getPoint());
-        System.out.println("red point: "+red.getPoint());
-        System.out.println("point loss in combat log: "+log.getPointLoss());
-        System.out.println("point gain in combat log: "+log.getPointGain());
+        System.out.println("blue point: " + blue.getPoint());
+        System.out.println("red point: " + red.getPoint());
+        System.out.println("point loss in combat log: " + log.getPointLoss());
+        System.out.println("point gain in combat log: " + log.getPointGain());
         red.setMatchPlayed(red.getMatchPlayed() + 1);
         blue.setMatchPlayed(blue.getMatchPlayed() + 1);
         pageUserRepository.save(blue);
@@ -205,7 +205,7 @@ public class CardService {
         return log;
     }
 
-        private int calculatePointDifference(PageUser blue, PageUser red) {
+    private int calculatePointDifference(PageUser blue, PageUser red) {
         int value = blue.getPoint() - red.getPoint();
         if (value < 0) value *= -1;
         return (int) (value + 0.1 * value);
@@ -220,9 +220,30 @@ public class CardService {
         return skill;
     }
 
+    private int calculateEarlySkill(Set<Card> team) {
+        int skill = 0;
+        for (Card card : team) {
+
+            skill = skill + card.getEarlyGameSkill();
+        }
+        return skill;
+    }
+
+    private void calculateEarlyGameWinner(Set<Card> blueTeam, Set<Card> redTeam, CombatLog combatLog) {
+        int blueEarlySkill = calculateEarlySkill(blueTeam);
+        int redEarlySkill = calculateEarlySkill(redTeam);
+        if (blueEarlySkill >= redEarlySkill) {
+            combatLog.setEarlyGameText("Blue side had won by: Blue: " + blueEarlySkill + " Red: " + redEarlySkill);
+            combatLog.setBlueScore(+1);
+        } else {
+            combatLog.setEarlyGameText("Red side had won by: Red: " + redEarlySkill + " Blue: " + blueEarlySkill);
+            combatLog.setRedScore(+1);
+        }
+    }
+
     public List<PageUser> ledger() {
         List<PageUser> users = pageUserRepository.findAll();
-        Collections.sort(users,Collections.reverseOrder());
+        Collections.sort(users, Collections.reverseOrder());
         return users;
     }
 }
