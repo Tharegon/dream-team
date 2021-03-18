@@ -24,29 +24,33 @@ public class BattleService {
     public CombatLog battle(Long blueId, Long redId) {
         PageUser blue = pageUserRepository.getOne(blueId);
         PageUser red = pageUserRepository.getOne(redId);
-        System.out.println("blue points " + blue.getPoint());
-        System.out.println("red points " + red.getPoint());
-        System.out.println("---------------");
+
         Set<Card> blueTeam = blue.getTeam().getMyTeam();
         Set<Card> redTeam = red.getTeam().getMyTeam();
-        int pointDiff = calculatePointDifference(blue, red);
-        CombatLog log = CombatLog.builder().date(LocalDateTime.now()).blue(blue).red(red).build();
+
+        CombatLog log = CombatLog.builder()
+                .date(LocalDateTime.now())
+                .blue(blue).red(red)
+                .build();
+
         calculateEarlyGameWinner(blueTeam, redTeam, log);
         calculateMidGameWinner(blueTeam, redTeam, log);
         calculateLateGameWinner(blueTeam, redTeam, log);
-        winning(log, pointDiff, getWinner(log));
-        losing(log, pointDiff, getLoser(log));
-        System.out.println("blue point: " + blue.getPoint());
-        System.out.println("red point: " + red.getPoint());
-        System.out.println("point loss in combat log: " + log.getPointLoss());
-        System.out.println("point gain in combat log: " + log.getPointGain());
-        red.setMatchPlayed(red.getMatchPlayed() + 1);
-        blue.setMatchPlayed(blue.getMatchPlayed() + 1);
+
+        winning(log, getWinner(log));
+        losing(log, getLoser(log));
+
+
         pageUserRepository.save(blue);
         pageUserRepository.save(red);
         logRepository.save(log);
         return log;
     }
+
+    private int eloToUser(int win, int lose){
+        return  (win*400 - lose*400)/win+lose;
+    }
+
 
     private int calculatePointDifference(PageUser blue, PageUser red) {
         int value = blue.getPoint() - red.getPoint();
@@ -136,17 +140,17 @@ public class BattleService {
         }
     }
 
-    private void winning(CombatLog combatLog, int pointDiff, PageUser winner) {
+    private void winning(CombatLog combatLog, PageUser winner) {
         combatLog.setWinner(winner.getName());
-        combatLog.setPointGain(pointDiff);
+        combatLog.setPointGain(400);
         winner.setMatchPlayed(winner.getMatchPlayed() + 1);
-        winner.setPoint(winner.getPoint()+pointDiff);
+        winner.setPoint(winner.getPoint() + combatLog.getPointGain());
         winner.setWin(winner.getWin() + 1);
     }
 
-    private void losing(CombatLog combatLog, int pointDiff, PageUser loser) {
+    private void losing(CombatLog combatLog, PageUser loser) {
         combatLog.setLoser(loser.getName());
-        combatLog.setPointLoss(pointDiff / 2);
+        combatLog.setPointLoss(400);
         loser.setMatchPlayed(loser.getMatchPlayed() + 1);
         loser.setPoint(loser.getPoint()-combatLog.getPointLoss());
         loser.setLose(loser.getLose() + 1);
