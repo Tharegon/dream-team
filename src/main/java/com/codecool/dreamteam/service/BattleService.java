@@ -22,8 +22,8 @@ public class BattleService {
     }
 
     public CombatLog battle(Long blueId, Long redId) {
-        PageUser blue = pageUserRepository.getOne(blueId);
-        PageUser red = pageUserRepository.getOne(redId);
+        PageUser blue = pageUserRepository.findById(blueId).get();
+        PageUser red = pageUserRepository.findById(redId).get();
 
         Set<Card> blueTeam = blue.getTeam().getMyTeam();
         Set<Card> redTeam = red.getTeam().getMyTeam();
