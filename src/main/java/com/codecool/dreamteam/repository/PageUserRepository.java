@@ -8,4 +8,5 @@ import java.util.Set;
 
 public interface PageUserRepository extends JpaRepository<PageUser,Long> {
 
+    PageUser findByName(String Name);
 }
