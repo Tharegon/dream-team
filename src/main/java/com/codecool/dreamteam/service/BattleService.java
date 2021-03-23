@@ -53,9 +53,15 @@ public class BattleService {
 
 
     private int calculatePointDifference(PageUser blue, PageUser red) {
-        int value = blue.getPoint() - red.getPoint();
-        if (value < 0) value *= -1;
-        return (int) (value + 0.1 * value);
+        if (blue.getPoint()>red.getPoint()) {
+            int value = blue.getPoint() - red.getPoint();
+            if (value < 0) value *= -1;
+            return (int) (value + 0.1 * value);
+        }else{
+            int value = red.getPoint() - blue.getPoint();
+            if (value < 0) value *= -1;
+            return (int) (value + 0.1 * value);
+        }
     }
 
     private int calculateSkill(Set<Card> team) {
