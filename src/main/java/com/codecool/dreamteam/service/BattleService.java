@@ -30,7 +30,7 @@ public class BattleService {
 
         CombatLog log = CombatLog.builder()
                 .date(LocalDateTime.now())
-                .blue(blue).red(red)
+                .blue(blue).red(red).pointGain(calculatePointDifference(blue,red))
                 .build();
 
         calculateEarlyGameWinner(blueTeam, redTeam, log);
@@ -38,7 +38,7 @@ public class BattleService {
         calculateLateGameWinner(blueTeam, redTeam, log);
 
         winning(log, getWinner(log));
-        losing(log, getLoser(log));
+        //losing(log, getLoser(log));
 
 
         pageUserRepository.save(blue);
@@ -55,12 +55,10 @@ public class BattleService {
     private int calculatePointDifference(PageUser blue, PageUser red) {
         if (blue.getPoint()>red.getPoint()) {
             int value = blue.getPoint() - red.getPoint();
-            if (value < 0) value *= -1;
-            return (int) (value + 0.1 * value);
+            return (int) (400*value*0.1);
         }else{
             int value = red.getPoint() - blue.getPoint();
-            if (value < 0) value *= -1;
-            return (int) (value + 0.1 * value);
+            return (int) (value/(value/400));
         }
     }
 
@@ -148,7 +146,7 @@ public class BattleService {
 
     private void winning(CombatLog combatLog, PageUser winner) {
         combatLog.setWinner(winner.getName());
-        combatLog.setPointGain(400);
+        //combatLog.setPointGain(400);
         winner.setMatchPlayed(winner.getMatchPlayed() + 1);
         winner.setPoint(winner.getPoint() + combatLog.getPointGain());
         winner.setWin(winner.getWin() + 1);
@@ -156,7 +154,7 @@ public class BattleService {
 
     private void losing(CombatLog combatLog, PageUser loser) {
         combatLog.setLoser(loser.getName());
-        combatLog.setPointLoss(400);
+        //combatLog.setPointLoss(400);
         loser.setMatchPlayed(loser.getMatchPlayed() + 1);
         loser.setPoint(loser.getPoint()-combatLog.getPointLoss());
         loser.setLose(loser.getLose() + 1);
