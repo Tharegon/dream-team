@@ -30,7 +30,7 @@ public class BattleService {
 
         CombatLog log = CombatLog.builder()
                 .date(LocalDateTime.now())
-                .blue(blue).red(red)
+                .blue(blue).red(red).pointGain(calculatePointDifference(blue, red))
                 .build();
 
         calculateEarlyGameWinner(blueTeam, redTeam, log);
@@ -47,15 +47,15 @@ public class BattleService {
         return log;
     }
 
-    private int eloToUser(int win, int lose){
-        return  (win*400 - lose*400)/win+lose;
-    }
-
 
     private int calculatePointDifference(PageUser blue, PageUser red) {
-        int value = blue.getPoint() - red.getPoint();
-        if (value < 0) value *= -1;
-        return (int) (value + 0.1 * value);
+        if (blue.getPoint() > red.getPoint()) {
+            int value = blue.getPoint() - red.getPoint();
+            return (int) (400 * value * 0.1);
+        } else {
+            int value = red.getPoint() - blue.getPoint();
+            return (int) (value / (value / 400));
+        }
     }
 
     private int calculateSkill(Set<Card> team) {
@@ -150,9 +150,9 @@ public class BattleService {
 
     private void losing(CombatLog combatLog, PageUser loser) {
         combatLog.setLoser(loser.getName());
-        combatLog.setPointLoss(400);
+        combatLog.setPointLoss(150);
         loser.setMatchPlayed(loser.getMatchPlayed() + 1);
-        loser.setPoint(loser.getPoint()-combatLog.getPointLoss());
+        loser.setPoint(loser.getPoint() - combatLog.getPointLoss());
         loser.setLose(loser.getLose() + 1);
     }
 }
