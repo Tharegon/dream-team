@@ -1,5 +1,5 @@
 # dream-team
-This is a Spring based backend project with [PSQL](http://postgresguide.com/utilities/psql.html).
+This is a Spring based backend project with [PSQL](http://postgresguide.com/utilities/psql.html).The project is based on a card game, where you can collect [LEC](https://www.google.com/search?client=opera&q=LEC&sourceid=opera&ie=UTF-8&oe=UTF-8) pro players as cards similar to baseball cards and battle with your own fantasy team.
 
 How to setup:<br>
 First you need a [database](https://www.postgresql.org/docs/9.1/app-createdb.html) on your device.<br>
