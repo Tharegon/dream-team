@@ -47,4 +47,11 @@ public class MockMvcTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    public void testGetMyTeamReturnJSON() throws Exception{
+        mockMvc.perform(get("/get-my-team/3")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 }
