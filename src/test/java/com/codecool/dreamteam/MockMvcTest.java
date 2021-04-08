@@ -39,4 +39,12 @@ public class MockMvcTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
+
+
+    @Test
+    public void testCardReturnJSON() throws Exception{
+        mockMvc.perform(get("/card/2")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 }
