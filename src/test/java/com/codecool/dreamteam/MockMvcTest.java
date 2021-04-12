@@ -1,9 +1,14 @@
 package com.codecool.dreamteam;
 
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+
 import com.codecool.dreamteam.controller.CardController;
 import com.codecool.dreamteam.service.CardService;
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,6 +45,13 @@ public class MockMvcTest {
                 .andExpect(status().isOk());
     }
 
+    @Test
+    public void testMyCardsReturnData() throws Exception{
+        mockMvc.perform(get("/myCards/3")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", greaterThan(1)))
+                .andExpect(status().isOk());
+    }
 
     @Test
     public void testCardReturnJSON() throws Exception{
