@@ -71,5 +71,10 @@ public class MockMvcUserTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
-
+    @Test
+    public void testBuyLargePackReturnJSON() throws Exception{
+        mockMvc.perform(get("/buy-large-pack/3")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 }
