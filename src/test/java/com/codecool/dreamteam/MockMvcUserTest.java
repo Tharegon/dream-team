@@ -53,4 +53,10 @@ public class MockMvcUserTest {
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
+    @Test
+    public void testLargePackReturnJSON() throws Exception{
+        mockMvc.perform(get("/open-large-pack/3")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
 }
