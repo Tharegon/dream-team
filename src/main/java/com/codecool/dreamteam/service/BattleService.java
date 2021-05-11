@@ -49,11 +49,13 @@ public class BattleService {
 
 
     private int calculatePointDifference(PageUser blue, PageUser red) {
-        if (blue.getPoint() > red.getPoint()) {
+        if (blue.getPoint() >= red.getPoint()) {
             int value = blue.getPoint() - red.getPoint();
+            if (value==0) value = 1;
             return (int) (400 * value * 0.1);
         } else {
             int value = red.getPoint() - blue.getPoint();
+            if (value==0) value = 1;
             return (int) (value / (value / 400));
         }
     }
